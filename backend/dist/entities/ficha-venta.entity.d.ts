@@ -1,0 +1,34 @@
+import { Unidad } from './unidad.entity';
+import { Usuario } from './usuario.entity';
+import { FichaCliente } from './ficha-cliente.entity';
+import { FichaAdicional } from './ficha-adicional.entity';
+import { DocumentoVenta } from './documento-venta.entity';
+import { PlanPago } from './plan-pago.entity';
+import { Escritura } from './escritura.entity';
+import { Entrega } from './entrega.entity';
+export declare class FichaVenta {
+    id: number;
+    folio: string;
+    unidadId: number;
+    unidad: Unidad;
+    agenteId: number;
+    agente: Usuario;
+    estadoFicha: string;
+    valorTotalUf: number;
+    bonoPie: boolean;
+    creditoFunditMonto: number;
+    estadoEscritura: string;
+    bancoHipotecario: string;
+    montoHipotecario: number;
+    fechaFirmaEscrituraCliente: Date;
+    estadoEntrega: string;
+    comisionBrokerMonto: number;
+    estadoComisionBroker: string;
+    createdAt: Date;
+    clientes: FichaCliente[];
+    adicionales: FichaAdicional[];
+    documentos: DocumentoVenta[];
+    planesPago: PlanPago[];
+    escritura: Escritura;
+    entrega: Entrega;
+}

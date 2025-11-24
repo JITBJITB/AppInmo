@@ -1,0 +1,70 @@
+<div *ngIf="plan" class="bg-white shadow rounded-lg overflow-hidden">
+    <div class="px-4 py-5 sm:px-6 bg-gray-50 border-b border-gray-200">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Plan de Pago</h3>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">Detalle de cuotas y estado de pago.</p>
+    </div>
+
+    <div class="p-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-blue-50 p-4 rounded">
+                <div class="text-sm text-gray-500">Monto Total</div>
+                <div class="text-xl font-bold">{{ plan.montoTotal | number:'1.0-0' }} UF</div>
+            </div>
+            <div class="bg-green-50 p-4 rounded">
+                <div class="text-sm text-gray-500">Pie Pagado</div>
+                <div class="text-xl font-bold">{{ plan.montoPie | number:'1.0-0' }} UF</div>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded">
+                <div class="text-sm text-gray-500">Saldo a Pagar</div>
+                <div class="text-xl font-bold">{{ plan.saldoAPagar | number:'1.0-0' }} UF</div>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Vencimiento</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Monto
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Estado</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Acción</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr *ngFor="let cuota of plan.cuotas">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ cuota.numeroCuota
+                            }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ cuota.fechaVencimiento |
+                            date:'dd/MM/yyyy' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ cuota.montoCuota |
+                            number:'1.0-0' }} UF</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                                [class.bg-green-100]="cuota.estado === 'Pagada'"
+                                [class.text-green-800]="cuota.estado === 'Pagada'"
+                                [class.bg-yellow-100]="cuota.estado === 'Pendiente'"
+                                [class.text-yellow-800]="cuota.estado === 'Pendiente'">
+                                {{ cuota.estado }}
+                            </span>
+                            <div *ngIf="cuota.fechaPago" class="text-xs text-gray-500 mt-1">
+                                {{ cuota.fechaPago | date:'dd/MM/yyyy' }}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button *ngIf="cuota.estado === 'Pendiente'" (click)="payCuota(cuota)"
+                                class="text-indigo-600 hover:text-indigo-900 font-bold">
+                                Pagar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

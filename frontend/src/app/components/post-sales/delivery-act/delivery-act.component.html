@@ -1,0 +1,40 @@
+<div class="bg-white rounded-lg shadow p-6 mt-6">
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">Acta de Entrega</h2>
+
+    <div *ngIf="loading" class="text-gray-500">Cargando...</div>
+
+    <div *ngIf="!loading && !entrega">
+        <p class="text-gray-500 mb-4">No hay entrega programada.</p>
+        <div class="flex gap-4">
+            <input type="date" [(ngModel)]="scheduleDate"
+                class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            <button (click)="schedule()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Agendar Entrega
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && entrega" class="space-y-4">
+        <div *ngIf="!entrega.firmada">
+            <p class="text-lg font-medium text-blue-600 mb-2">
+                Entrega Programada: {{ entrega.fechaProgramada | date:'dd/MM/yyyy' }}
+            </p>
+
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700">Observaciones</label>
+                <textarea [(ngModel)]="observations" rows="3"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+            </div>
+
+            <button (click)="complete()" class="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                Firmar Acta de Entrega
+            </button>
+        </div>
+
+        <div *ngIf="entrega.firmada" class="bg-green-50 p-4 rounded-md">
+            <p class="text-green-800 font-semibold">Entrega Realizada</p>
+            <p class="text-sm text-green-600">Fecha: {{ entrega.fechaReal | date:'dd/MM/yyyy HH:mm' }}</p>
+            <p class="text-sm text-gray-600 mt-2">Observaciones: {{ entrega.observaciones || 'Ninguna' }}</p>
+        </div>
+    </div>
+</div>

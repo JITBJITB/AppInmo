@@ -1,0 +1,82 @@
+export interface Unidad {
+    id: number;
+    proyectoId: number;
+    nombre: string;
+    tipologia: string;
+    metrosCuadrados: number;
+    piso: number;
+    valorUf: number;
+    estado: 'Disponible' | 'Reservada' | 'Vendida';
+}
+
+export interface Proyecto {
+    id: number;
+    nombre: string;
+    direccion: string;
+    comuna: string;
+    imagenPrincipalUrl: string;
+    unidades?: Unidad[];
+}
+export interface DocumentoCliente {
+    id: number;
+    tipoDocumento: string;
+    urlS3: string;
+    estadoValidacion: string;
+    createdAt: string;
+}
+
+export interface Cliente {
+    id: number;
+    nombreCompleto: string;
+    rut: string;
+    email: string;
+    telefono: string;
+    documentos?: DocumentoCliente[];
+}
+
+export interface CuotaDto {
+    numero: number;
+    monto: number;
+    fechaVencimiento: string;
+}
+
+export interface CreateFichaDto {
+    unidadId: number;
+    clienteId: number;
+    pieMonto: number;
+    reservaMonto: number;
+    cuotas: CuotaDto[];
+}
+
+export interface FichaVenta {
+    id: number;
+    folio: string;
+    estadoFicha: string;
+    unidad: Unidad;
+    clientePrincipal?: Cliente;
+    agente?: { id: number; nombre: string; email: string };
+    valorTotalUf: number;
+    comisionBrokerMonto?: number;
+    estadoComisionBroker?: string;
+    createdAt: string;
+}
+
+export interface Cuota {
+    id: number;
+    numeroCuota: number;
+    montoCuota: number;
+    fechaVencimiento: string;
+    estado: string;
+    fechaPago?: string;
+}
+
+export interface PlanPago {
+    id: number;
+    tipoPlan: string;
+    montoTotal: number;
+    montoPie: number;
+    montoReserva: number;
+    saldoAPagar: number;
+    numeroCuotas: number;
+    cuotas?: Cuota[];
+}
