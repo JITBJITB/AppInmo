@@ -1,0 +1,50 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <h1 class="text-3xl font-bold text-gray-800 mb-8">Dashboard Gerencia</h1>
+
+  <!-- KPIs -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" *ngIf="kpis">
+    <!-- Ventas del Mes -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-500">
+      <div class="text-gray-500 text-sm font-medium uppercase mb-2">Ventas del Mes</div>
+      <div class="text-3xl font-bold text-gray-800">{{ kpis.ventasMes }}</div>
+    </div>
+
+    <!-- Monto Total Fundit -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-500">
+      <div class="text-gray-500 text-sm font-medium uppercase mb-2">Monto Fundit Colocado</div>
+      <div class="text-3xl font-bold text-gray-800">{{ kpis.totalFundit | currency:'CLP':'symbol-narrow':'1.0-0' }}</div>
+    </div>
+
+    <!-- Cuotas Atrasadas -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-red-500">
+      <div class="text-gray-500 text-sm font-medium uppercase mb-2">Cuotas Atrasadas</div>
+      <div class="text-3xl font-bold text-gray-800">{{ kpis.cuotasAtrasadas }}</div>
+    </div>
+
+    <!-- Propiedades en Arriendo -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-500">
+      <div class="text-gray-500 text-sm font-medium uppercase mb-2">Arriendo Garantizado</div>
+      <div class="text-3xl font-bold text-gray-800">{{ kpis.activeBenefits }}</div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <h2 class="text-xl font-semibold text-gray-800 mb-6">Ventas por Broker</h2>
+    <div class="h-[400px] w-full flex justify-center items-center">
+      <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="salesByBroker"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel">
+      </ngx-charts-bar-vertical>
+    </div>
+  </div>
+</div>

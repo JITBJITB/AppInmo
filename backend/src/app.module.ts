@@ -12,6 +12,7 @@ import { DocumentsModule } from './documents/documents.module';
 import { TasksModule } from './tasks/tasks.module';
 import { PostSalesModule } from './post-sales/post-sales.module';
 import { CommissionsModule } from './commissions/commissions.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { CommissionsModule } from './commissions/commissions.module';
     TasksModule,
     PostSalesModule,
     CommissionsModule,
+    DashboardModule,
   ],
   controllers: [AppController],
   providers: [AppService],

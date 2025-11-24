@@ -1,0 +1,13 @@
+{
+  "name": "app-inmo-root",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "eslint": "^8.57.0"
+  }
+}

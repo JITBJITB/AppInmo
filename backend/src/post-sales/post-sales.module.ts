@@ -5,9 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Escritura } from '../entities/escritura.entity';
 import { Entrega } from '../entities/entrega.entity';
 import { FichaVenta } from '../entities/ficha-venta.entity';
+import { GuaranteedRentBenefit } from '../entities/guaranteed-rent-benefit.entity';
+import { Task } from '../entities/task.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Escritura, Entrega, FichaVenta])],
+  imports: [TypeOrmModule.forFeature([Escritura, Entrega, FichaVenta, GuaranteedRentBenefit, Task])],
   providers: [PostSalesService],
   controllers: [PostSalesController]
 })

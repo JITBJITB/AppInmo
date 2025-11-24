@@ -26,4 +26,9 @@ export class SalesController {
     findOne(@Param('id') id: string) {
         return this.salesService.findOne(+id);
     }
+    @Post(':id/approve')
+    @Roles('Gerencia', 'Admin')
+    approve(@Param('id') id: string) {
+        return this.salesService.approveFicha(+id);
+    }
 }

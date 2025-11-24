@@ -42,7 +42,10 @@ export class SalesService {
             ficha.unidad = unidad;
             ficha.agenteId = userId;
             ficha.valorTotalUf = unidad.valorUf;
+            ficha.valorTotalUf = unidad.valorUf;
             ficha.bonoPie = false;
+            ficha.hasFundit = data.hasFundit || false;
+            ficha.creditoFunditMonto = data.creditoFunditMonto || 0;
 
             const savedFicha = await queryRunner.manager.save(FichaVenta, ficha);
 
@@ -105,5 +108,56 @@ export class SalesService {
         });
         if (!ficha) throw new NotFoundException('Venta no encontrada');
         return ficha;
+    }
+    async approveFicha(id: number): Promise<FichaVenta> {
+        const queryRunner = this.dataSource.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+
+        try {
+            const ficha = await queryRunner.manager.findOne(FichaVenta, { where: { id } });
+            if (!ficha) throw new NotFoundException('Venta no encontrada');
+
+            ficha.estadoFicha = 'Aprobada';
+            await queryRunner.manager.save(FichaVenta, ficha);
+
+            if (ficha.hasFundit) {
+                const plan = new PlanPago();
+                plan.fichaVenta = ficha;
+                plan.tipoPlan = 'Fundit';
+                plan.montoTotal = ficha.creditoFunditMonto;
+                plan.numeroCuotas = 60;
+                plan.saldoAPagar = ficha.creditoFunditMonto;
+                plan.montoPie = 0;
+                plan.montoReserva = 0;
+
+                const savedPlan = await queryRunner.manager.save(PlanPago, plan);
+
+                const cuotaValue = ficha.creditoFunditMonto / 60;
+                const today = new Date();
+
+                for (let i = 1; i <= 60; i++) {
+                    const cuota = new Cuota();
+                    cuota.planPago = savedPlan;
+                    cuota.numeroCuota = i;
+                    cuota.montoCuota = cuotaValue;
+
+                    const vencimiento = new Date(today);
+                    vencimiento.setMonth(vencimiento.getMonth() + i);
+                    cuota.fechaVencimiento = vencimiento;
+
+                    cuota.estado = 'Pendiente';
+                    await queryRunner.manager.save(Cuota, cuota);
+                }
+            }
+
+            await queryRunner.commitTransaction();
+            return ficha;
+        } catch (err) {
+            await queryRunner.rollbackTransaction();
+            throw new InternalServerErrorException(err.message);
+        } finally {
+            await queryRunner.release();
+        }
     }
 }
