@@ -1,11 +1,11 @@
 <h3 class="text-lg leading-6 font-medium text-gray-900">Documentos</h3>
 <p class="mt-1 max-w-2xl text-sm text-gray-500">Archivos adjuntos y estado de validación.</p>
-</div>
-<button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm">Subir
-    Documento</button>
+<div>
+    <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm">Subir
+        Documento</button>
 </div>
 <ul role="list" class="divide-y divide-gray-200">
-    <li *ngFor="let doc of client.documentos" class="px-4 py-4 sm:px-6">
+    <li *ngFor="let doc of client?.documentos" class="px-4 py-4 sm:px-6">
         <div class="flex items-center justify-between">
             <div class="text-sm font-medium text-blue-600 truncate">
                 {{ doc.tipoDocumento }}
@@ -25,9 +25,7 @@
             </div>
         </div>
     </li>
-    <li *ngIf="!client.documentos?.length" class="px-4 py-4 sm:px-6 text-sm text-gray-500 text-center">
+    <li *ngIf="!client?.documentos?.length" class="px-4 py-4 sm:px-6 text-sm text-gray-500 text-center">
         No hay documentos registrados.
     </li>
 </ul>
-</div>
-</div>
