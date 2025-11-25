@@ -27,10 +27,25 @@ export interface DocumentoCliente {
 
 export interface Cliente {
     id: number;
+    nombre1?: string;
+    nombre2?: string;
+    apellido1?: string;
+    apellido2?: string;
     nombreCompleto: string;
     rut: string;
     email: string;
     telefono: string;
+    fechaNacimiento?: string;
+    estadoCivil?: string;
+    profesion?: string;
+    renta?: number;
+    nacionalidad?: string;
+    direccionCalle?: string;
+    direccionNumero?: string;
+    direccionComuna?: string;
+    direccionCiudad?: string;
+    direccionRegion?: string;
+    direccionPais?: string;
     documentos?: DocumentoCliente[];
 }
 

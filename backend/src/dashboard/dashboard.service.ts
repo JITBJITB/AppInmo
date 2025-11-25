@@ -4,6 +4,7 @@ import { Repository, Between, LessThan } from 'typeorm';
 import { FichaVenta } from '../entities/ficha-venta.entity';
 import { Cuota } from '../entities/cuota.entity';
 import { GuaranteedRentBenefit } from '../entities/guaranteed-rent-benefit.entity';
+import { EstadoFicha } from '../sales/enums/estado-ficha.enum';
 
 @Injectable()
 export class DashboardService {
@@ -25,13 +26,13 @@ export class DashboardService {
         const ventasMes = await this.fichaRepository.count({
             where: {
                 createdAt: Between(firstDayOfMonth, lastDayOfMonth),
-                estadoFicha: 'Aprobada' // Assuming only approved sales count
+                estadoFicha: EstadoFicha.PROMESA // Assuming approved sales are Promesa
             }
         });
 
         // 2. Monto Total Fundit Colocado
         const funditSales = await this.fichaRepository.find({
-            where: { hasFundit: true, estadoFicha: 'Aprobada' },
+            where: { hasFundit: true, estadoFicha: EstadoFicha.PROMESA },
             select: ['creditoFunditMonto']
         });
         const totalFundit = funditSales.reduce((sum, sale) => sum + Number(sale.creditoFunditMonto || 0), 0);
@@ -64,7 +65,7 @@ export class DashboardService {
             .leftJoinAndSelect('ficha.usuario', 'usuario')
             .select('usuario.nombre', 'name')
             .addSelect('COUNT(ficha.id)', 'value')
-            .where('ficha.estadoFicha = :status', { status: 'Aprobada' })
+            .where('ficha.estadoFicha = :status', { status: EstadoFicha.PROMESA })
             .groupBy('usuario.nombre')
             .getRawMany();
 

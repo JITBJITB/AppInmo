@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FichaVenta } from '../entities/ficha-venta.entity';
 import { Usuario } from '../entities/usuario.entity';
+import { UserRole } from '../auth/roles.enum';
 
 @Injectable()
 export class CommissionsService {
@@ -18,7 +19,7 @@ export class CommissionsService {
         if (!ficha) throw new NotFoundException('Ficha no encontrada');
 
         const agent = await this.usuarioRepository.findOne({ where: { id: ficha.agenteId } });
-        if (!agent || agent.rol !== 'Broker') {
+        if (!agent || agent.rol !== UserRole.BROKER_EXTERNO) {
             // If not a broker, we might still want to set commission to 0 or handle differently.
             // For now, we just return the ficha without changes if not a broker.
             return ficha;

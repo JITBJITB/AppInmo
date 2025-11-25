@@ -7,7 +7,19 @@ export class Cliente {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ name: 'nombre_completo' })
+    @Column({ name: 'nombre_1', nullable: true })
+    nombre1: string;
+
+    @Column({ name: 'nombre_2', nullable: true })
+    nombre2: string;
+
+    @Column({ name: 'apellido_1', nullable: true })
+    apellido1: string;
+
+    @Column({ name: 'apellido_2', nullable: true })
+    apellido2: string;
+
+    @Column({ name: 'nombre_completo', nullable: true })
     nombreCompleto: string;
 
     @Column({ unique: true })
@@ -29,14 +41,26 @@ export class Cliente {
     @Column({ nullable: true })
     profesion: string;
 
+    @Column({ nullable: true })
+    renta: number;
+
+    @Column({ nullable: true })
+    nacionalidad: string;
+
     @Column({ name: 'direccion_calle', nullable: true })
     direccionCalle: string;
+
+    @Column({ name: 'direccion_numero', nullable: true })
+    direccionNumero: string;
 
     @Column({ name: 'direccion_comuna', nullable: true })
     direccionComuna: string;
 
     @Column({ name: 'direccion_ciudad', nullable: true })
     direccionCiudad: string;
+
+    @Column({ name: 'direccion_region', nullable: true })
+    direccionRegion: string;
 
     @Column({ name: 'direccion_pais', default: 'Chile', nullable: true })
     direccionPais: string;

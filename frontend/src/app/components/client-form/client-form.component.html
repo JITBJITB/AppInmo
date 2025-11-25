@@ -4,14 +4,41 @@
             <div class="w-full p-4">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Nuevo Cliente</h2>
                 <form (ngSubmit)="onSubmit()">
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre">
-                            Nombre Completo
-                        </label>
-                        <input [(ngModel)]="client.nombreCompleto" name="nombre"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="nombre" type="text" placeholder="Juan Pérez" required>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre1">
+                                Primer Nombre
+                            </label>
+                            <input [(ngModel)]="client.nombre1" name="nombre1"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="nombre1" type="text" placeholder="Juan" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre2">
+                                Segundo Nombre
+                            </label>
+                            <input [(ngModel)]="client.nombre2" name="nombre2"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="nombre2" type="text" placeholder="Andres">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="apellido1">
+                                Primer Apellido
+                            </label>
+                            <input [(ngModel)]="client.apellido1" name="apellido1"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="apellido1" type="text" placeholder="Perez" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="apellido2">
+                                Segundo Apellido
+                            </label>
+                            <input [(ngModel)]="client.apellido2" name="apellido2"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="apellido2" type="text" placeholder="Gonzalez">
+                        </div>
                     </div>
+
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="rut">
                             RUT
@@ -20,23 +47,127 @@
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="rut" type="text" placeholder="12.345.678-9" required>
                     </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                            Email
-                        </label>
-                        <input [(ngModel)]="client.email" name="email"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="email" type="email" placeholder="juan@example.com" required>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                                Email
+                            </label>
+                            <input [(ngModel)]="client.email" name="email"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="email" type="email" placeholder="juan@example.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="telefono">
+                                Celular
+                            </label>
+                            <input [(ngModel)]="client.telefono" name="telefono"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="telefono" type="tel" placeholder="+569 1234 5678">
+                        </div>
                     </div>
-                    <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="telefono">
-                            Teléfono
-                        </label>
-                        <input [(ngModel)]="client.telefono" name="telefono"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="telefono" type="tel" placeholder="+569 1234 5678">
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="fechaNacimiento">
+                                Fecha Nacimiento
+                            </label>
+                            <input [(ngModel)]="client.fechaNacimiento" name="fechaNacimiento"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="fechaNacimiento" type="date">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="estadoCivil">
+                                Estado Civil
+                            </label>
+                            <select [(ngModel)]="client.estadoCivil" name="estadoCivil"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="estadoCivil">
+                                <option value="">Seleccione</option>
+                                <option value="Soltero">Soltero</option>
+                                <option value="Casado">Casado</option>
+                                <option value="Viudo">Viudo</option>
+                                <option value="Divorciado">Divorciado</option>
+                                <option value="Conviviente Civil">Conviviente Civil</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="nacionalidad">
+                                Nacionalidad
+                            </label>
+                            <input [(ngModel)]="client.nacionalidad" name="nacionalidad"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="nacionalidad" type="text" placeholder="Chilena">
+                        </div>
                     </div>
-                    <div class="flex items-center justify-between">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="profesion">
+                                Profesión
+                            </label>
+                            <input [(ngModel)]="client.profesion" name="profesion"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="profesion" type="text" placeholder="Ingeniero">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="renta">
+                                Renta (CLP)
+                            </label>
+                            <input [(ngModel)]="client.renta" name="renta"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="renta" type="number" placeholder="1000000">
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 mt-4">Dirección</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="mb-4 col-span-2">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="direccionCalle">
+                                Calle
+                            </label>
+                            <input [(ngModel)]="client.direccionCalle" name="direccionCalle"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="direccionCalle" type="text" placeholder="Av. Providencia">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="direccionNumero">
+                                Número
+                            </label>
+                            <input [(ngModel)]="client.direccionNumero" name="direccionNumero"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="direccionNumero" type="text" placeholder="1234">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="direccionComuna">
+                                Comuna
+                            </label>
+                            <input [(ngModel)]="client.direccionComuna" name="direccionComuna"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="direccionComuna" type="text" placeholder="Providencia">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="direccionRegion">
+                                Región
+                            </label>
+                            <input [(ngModel)]="client.direccionRegion" name="direccionRegion"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="direccionRegion" type="text" placeholder="Metropolitana">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="direccionPais">
+                                País
+                            </label>
+                            <input [(ngModel)]="client.direccionPais" name="direccionPais"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="direccionPais" type="text" placeholder="Chile">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-end mt-6">
                         <button
                             class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             type="submit">

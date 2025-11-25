@@ -7,4 +7,8 @@ export declare class FinanceService {
     constructor(planPagoRepository: Repository<PlanPago>, cuotaRepository: Repository<Cuota>);
     getPlanByFicha(fichaId: number): Promise<PlanPago>;
     markCuotaAsPaid(cuotaId: number): Promise<Cuota>;
+    recalculateDebt(fichaId: number): Promise<{
+        totalDeuda: number;
+        cuotasPendientes: number;
+    }>;
 }

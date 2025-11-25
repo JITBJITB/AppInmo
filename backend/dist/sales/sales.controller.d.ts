@@ -5,4 +5,5 @@ export declare class SalesController {
     create(createFichaDto: any, req: any): Promise<import("../entities").FichaVenta>;
     findAll(): Promise<import("../entities").FichaVenta[]>;
     findOne(id: string): Promise<import("../entities").FichaVenta>;
+    approve(id: string): Promise<import("../entities").FichaVenta>;
 }

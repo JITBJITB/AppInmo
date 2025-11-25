@@ -8,5 +8,6 @@ export declare class Cuota {
     fechaVencimiento: Date;
     estado: string;
     fechaPago: Date;
+    comprobantePagoUrl: string;
     createdAt: Date;
 }

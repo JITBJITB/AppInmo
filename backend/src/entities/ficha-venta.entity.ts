@@ -8,6 +8,8 @@ import { PlanPago } from './plan-pago.entity';
 import { Escritura } from './escritura.entity';
 import { Entrega } from './entrega.entity';
 
+import { EstadoFicha } from '../sales/enums/estado-ficha.enum';
+
 @Entity('fichas_venta')
 export class FichaVenta {
     @PrimaryGeneratedColumn()
@@ -30,9 +32,9 @@ export class FichaVenta {
     @JoinColumn({ name: 'agente_id' })
     agente: Usuario;
 
-    @Column({ name: 'estado_ficha', default: 'Borrador' })
+    @Column({ type: 'enum', enum: EstadoFicha, default: EstadoFicha.BORRADOR, name: 'estado_ficha' })
     @Index()
-    estadoFicha: string;
+    estadoFicha: EstadoFicha;
 
     @Column({ name: 'valor_total_uf', type: 'decimal', precision: 12, scale: 2 })
     valorTotalUf: number;

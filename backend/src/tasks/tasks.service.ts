@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, LessThan } from 'typeorm';
 import { Unidad } from '../entities/unidad.entity';
 import { FichaVenta } from '../entities/ficha-venta.entity';
+import { EstadoFicha } from '../sales/enums/estado-ficha.enum';
 
 @Injectable()
 export class TasksService {
@@ -25,7 +26,7 @@ export class TasksService {
 
         const expiredFichas = await this.fichaVentaRepository.find({
             where: {
-                estadoFicha: 'Borrador',
+                estadoFicha: EstadoFicha.BORRADOR,
                 createdAt: LessThan(expirationDate),
             },
             relations: ['unidad'],
@@ -40,7 +41,7 @@ export class TasksService {
 
         for (const ficha of expiredFichas) {
             // Update Ficha status
-            ficha.estadoFicha = 'Vencida';
+            ficha.estadoFicha = EstadoFicha.VENCIDA;
             await this.fichaVentaRepository.save(ficha);
 
             // Release Unit

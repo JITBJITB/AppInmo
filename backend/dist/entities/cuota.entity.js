@@ -21,6 +21,7 @@ let Cuota = class Cuota {
     fechaVencimiento;
     estado;
     fechaPago;
+    comprobantePagoUrl;
     createdAt;
 };
 exports.Cuota = Cuota;
@@ -59,6 +60,10 @@ __decorate([
     (0, typeorm_1.Column)({ name: 'fecha_pago', type: 'date', nullable: true }),
     __metadata("design:type", Date)
 ], Cuota.prototype, "fechaPago", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'comprobante_pago_url', nullable: true }),
+    __metadata("design:type", String)
+], Cuota.prototype, "comprobantePagoUrl", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ name: 'created_at', type: 'timestamptz' }),
     __metadata("design:type", Date)

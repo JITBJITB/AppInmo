@@ -15,6 +15,10 @@ const documento_cliente_entity_1 = require("./documento-cliente.entity");
 const ficha_cliente_entity_1 = require("./ficha-cliente.entity");
 let Cliente = class Cliente {
     id;
+    nombre1;
+    nombre2;
+    apellido1;
+    apellido2;
     nombreCompleto;
     rut;
     email;
@@ -22,9 +26,13 @@ let Cliente = class Cliente {
     fechaNacimiento;
     estadoCivil;
     profesion;
+    renta;
+    nacionalidad;
     direccionCalle;
+    direccionNumero;
     direccionComuna;
     direccionCiudad;
+    direccionRegion;
     direccionPais;
     createdAt;
     documentos;
@@ -36,7 +44,23 @@ __decorate([
     __metadata("design:type", Number)
 ], Cliente.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'nombre_completo' }),
+    (0, typeorm_1.Column)({ name: 'nombre_1', nullable: true }),
+    __metadata("design:type", String)
+], Cliente.prototype, "nombre1", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'nombre_2', nullable: true }),
+    __metadata("design:type", String)
+], Cliente.prototype, "nombre2", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'apellido_1', nullable: true }),
+    __metadata("design:type", String)
+], Cliente.prototype, "apellido1", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'apellido_2', nullable: true }),
+    __metadata("design:type", String)
+], Cliente.prototype, "apellido2", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'nombre_completo', nullable: true }),
     __metadata("design:type", String)
 ], Cliente.prototype, "nombreCompleto", void 0);
 __decorate([
@@ -65,9 +89,21 @@ __decorate([
     __metadata("design:type", String)
 ], Cliente.prototype, "profesion", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Number)
+], Cliente.prototype, "renta", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Cliente.prototype, "nacionalidad", void 0);
+__decorate([
     (0, typeorm_1.Column)({ name: 'direccion_calle', nullable: true }),
     __metadata("design:type", String)
 ], Cliente.prototype, "direccionCalle", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'direccion_numero', nullable: true }),
+    __metadata("design:type", String)
+], Cliente.prototype, "direccionNumero", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: 'direccion_comuna', nullable: true }),
     __metadata("design:type", String)
@@ -76,6 +112,10 @@ __decorate([
     (0, typeorm_1.Column)({ name: 'direccion_ciudad', nullable: true }),
     __metadata("design:type", String)
 ], Cliente.prototype, "direccionCiudad", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'direccion_region', nullable: true }),
+    __metadata("design:type", String)
+], Cliente.prototype, "direccionRegion", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: 'direccion_pais', default: 'Chile', nullable: true }),
     __metadata("design:type", String)

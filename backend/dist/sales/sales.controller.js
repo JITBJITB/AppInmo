@@ -32,6 +32,9 @@ let SalesController = class SalesController {
     findOne(id) {
         return this.salesService.findOne(+id);
     }
+    approve(id) {
+        return this.salesService.approveFicha(+id);
+    }
 };
 exports.SalesController = SalesController;
 __decorate([
@@ -58,6 +61,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], SalesController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Post)(':id/approve'),
+    (0, roles_decorator_1.Roles)('Gerencia', 'Admin'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], SalesController.prototype, "approve", null);
 exports.SalesController = SalesController = __decorate([
     (0, common_1.Controller)('sales'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),

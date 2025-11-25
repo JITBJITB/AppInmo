@@ -57,7 +57,13 @@ let UsersService = class UsersService {
         this.usersRepository = usersRepository;
     }
     async findOne(email) {
-        return this.usersRepository.findOne({ where: { email } });
+        return this.usersRepository.findOne({ where: { email }, relations: ['brokerCompany'] });
+    }
+    async findOneById(id) {
+        return this.usersRepository.findOne({ where: { id }, relations: ['brokerCompany'] });
+    }
+    async findAll() {
+        return this.usersRepository.find({ relations: ['brokerCompany'] });
     }
     async create(usuario) {
         if (!usuario.passwordHash) {

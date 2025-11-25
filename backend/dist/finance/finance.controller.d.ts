@@ -4,4 +4,8 @@ export declare class FinanceController {
     constructor(financeService: FinanceService);
     getPlan(id: string): Promise<import("../entities").PlanPago>;
     markAsPaid(id: string): Promise<import("../entities").Cuota>;
+    getDebt(id: string): Promise<{
+        totalDeuda: number;
+        cuotasPendientes: number;
+    }>;
 }
