@@ -18,6 +18,7 @@ const cliente_entity_1 = require("../entities/cliente.entity");
 const ficha_cliente_entity_1 = require("../entities/ficha-cliente.entity");
 const plan_pago_entity_1 = require("../entities/plan-pago.entity");
 const cuota_entity_1 = require("../entities/cuota.entity");
+const estado_ficha_enum_1 = require("./enums/estado-ficha.enum");
 let SalesService = class SalesService {
     dataSource;
     constructor(dataSource) {
@@ -42,11 +43,14 @@ let SalesService = class SalesService {
             await queryRunner.manager.save(unidad);
             const ficha = new ficha_venta_entity_1.FichaVenta();
             ficha.folio = `F-${Date.now()}`;
-            ficha.estadoFicha = 'Borrador';
+            ficha.estadoFicha = estado_ficha_enum_1.EstadoFicha.BORRADOR;
             ficha.unidad = unidad;
             ficha.agenteId = userId;
             ficha.valorTotalUf = unidad.valorUf;
+            ficha.valorTotalUf = unidad.valorUf;
             ficha.bonoPie = false;
+            ficha.hasFundit = data.hasFundit || false;
+            ficha.creditoFunditMonto = data.creditoFunditMonto || 0;
             const savedFicha = await queryRunner.manager.save(ficha_venta_entity_1.FichaVenta, ficha);
             const cliente = await queryRunner.manager.findOne(cliente_entity_1.Cliente, { where: { id: data.clienteId } });
             if (!cliente)
@@ -100,6 +104,51 @@ let SalesService = class SalesService {
         if (!ficha)
             throw new common_1.NotFoundException('Venta no encontrada');
         return ficha;
+    }
+    async approveFicha(id) {
+        const queryRunner = this.dataSource.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try {
+            const ficha = await queryRunner.manager.findOne(ficha_venta_entity_1.FichaVenta, { where: { id } });
+            if (!ficha)
+                throw new common_1.NotFoundException('Venta no encontrada');
+            ficha.estadoFicha = estado_ficha_enum_1.EstadoFicha.PROMESA;
+            await queryRunner.manager.save(ficha_venta_entity_1.FichaVenta, ficha);
+            if (ficha.hasFundit) {
+                const plan = new plan_pago_entity_1.PlanPago();
+                plan.fichaVenta = ficha;
+                plan.tipoPlan = 'Fundit';
+                plan.montoTotal = ficha.creditoFunditMonto;
+                plan.numeroCuotas = 60;
+                plan.saldoAPagar = ficha.creditoFunditMonto;
+                plan.montoPie = 0;
+                plan.montoReserva = 0;
+                const savedPlan = await queryRunner.manager.save(plan_pago_entity_1.PlanPago, plan);
+                const cuotaValue = ficha.creditoFunditMonto / 60;
+                const today = new Date();
+                for (let i = 1; i <= 60; i++) {
+                    const cuota = new cuota_entity_1.Cuota();
+                    cuota.planPago = savedPlan;
+                    cuota.numeroCuota = i;
+                    cuota.montoCuota = cuotaValue;
+                    const vencimiento = new Date(today);
+                    vencimiento.setMonth(vencimiento.getMonth() + i);
+                    cuota.fechaVencimiento = vencimiento;
+                    cuota.estado = 'Pendiente';
+                    await queryRunner.manager.save(cuota_entity_1.Cuota, cuota);
+                }
+            }
+            await queryRunner.commitTransaction();
+            return ficha;
+        }
+        catch (err) {
+            await queryRunner.rollbackTransaction();
+            throw new common_1.InternalServerErrorException(err.message);
+        }
+        finally {
+            await queryRunner.release();
+        }
     }
 };
 exports.SalesService = SalesService;

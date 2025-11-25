@@ -14,12 +14,14 @@ const typeorm_1 = require("@nestjs/typeorm");
 const escritura_entity_1 = require("../entities/escritura.entity");
 const entrega_entity_1 = require("../entities/entrega.entity");
 const ficha_venta_entity_1 = require("../entities/ficha-venta.entity");
+const guaranteed_rent_benefit_entity_1 = require("../entities/guaranteed-rent-benefit.entity");
+const task_entity_1 = require("../entities/task.entity");
 let PostSalesModule = class PostSalesModule {
 };
 exports.PostSalesModule = PostSalesModule;
 exports.PostSalesModule = PostSalesModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([escritura_entity_1.Escritura, entrega_entity_1.Entrega, ficha_venta_entity_1.FichaVenta])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([escritura_entity_1.Escritura, entrega_entity_1.Entrega, ficha_venta_entity_1.FichaVenta, guaranteed_rent_benefit_entity_1.GuaranteedRentBenefit, task_entity_1.Task])],
         providers: [post_sales_service_1.PostSalesService],
         controllers: [post_sales_controller_1.PostSalesController]
     })

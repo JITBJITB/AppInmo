@@ -6,4 +6,5 @@ export declare class SalesService {
     createFicha(data: any, userId: number): Promise<FichaVenta>;
     findAll(): Promise<FichaVenta[]>;
     findOne(id: number): Promise<FichaVenta>;
+    approveFicha(id: number): Promise<FichaVenta>;
 }

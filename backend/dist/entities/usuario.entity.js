@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Usuario = void 0;
 const typeorm_1 = require("typeorm");
 const broker_proyecto_entity_1 = require("./broker-proyecto.entity");
+const broker_company_entity_1 = require("./broker-company.entity");
+const roles_enum_1 = require("../auth/roles.enum");
 let Usuario = class Usuario {
     id;
     nombre;
@@ -20,6 +22,8 @@ let Usuario = class Usuario {
     rol;
     createdAt;
     proyectosAsignados;
+    brokerCompanyId;
+    brokerCompany;
 };
 exports.Usuario = Usuario;
 __decorate([
@@ -39,7 +43,11 @@ __decorate([
     __metadata("design:type", String)
 ], Usuario.prototype, "passwordHash", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 'Broker' }),
+    (0, typeorm_1.Column)({
+        type: 'enum',
+        enum: roles_enum_1.UserRole,
+        default: roles_enum_1.UserRole.BROKER_EXTERNO
+    }),
     __metadata("design:type", String)
 ], Usuario.prototype, "rol", void 0);
 __decorate([
@@ -50,6 +58,15 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => broker_proyecto_entity_1.BrokerProyecto, (bp) => bp.broker),
     __metadata("design:type", Array)
 ], Usuario.prototype, "proyectosAsignados", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'broker_company_id', nullable: true }),
+    __metadata("design:type", Number)
+], Usuario.prototype, "brokerCompanyId", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => broker_company_entity_1.BrokerCompany, (company) => company.usuarios, { nullable: true }),
+    (0, typeorm_1.JoinColumn)({ name: 'broker_company_id' }),
+    __metadata("design:type", broker_company_entity_1.BrokerCompany)
+], Usuario.prototype, "brokerCompany", void 0);
 exports.Usuario = Usuario = __decorate([
     (0, typeorm_1.Entity)('usuarios')
 ], Usuario);

@@ -6,6 +6,7 @@ import { Cliente } from '../entities/cliente.entity';
 import { FichaCliente } from '../entities/ficha-cliente.entity';
 import { PlanPago } from '../entities/plan-pago.entity';
 import { Cuota } from '../entities/cuota.entity';
+import { EstadoFicha } from './enums/estado-ficha.enum';
 
 @Injectable()
 export class SalesService {
@@ -38,7 +39,7 @@ export class SalesService {
             // 2. Crear Ficha Venta
             const ficha = new FichaVenta();
             ficha.folio = `F-${Date.now()}`;
-            ficha.estadoFicha = 'Borrador';
+            ficha.estadoFicha = EstadoFicha.BORRADOR;
             ficha.unidad = unidad;
             ficha.agenteId = userId;
             ficha.valorTotalUf = unidad.valorUf;
@@ -118,7 +119,7 @@ export class SalesService {
             const ficha = await queryRunner.manager.findOne(FichaVenta, { where: { id } });
             if (!ficha) throw new NotFoundException('Venta no encontrada');
 
-            ficha.estadoFicha = 'Aprobada';
+            ficha.estadoFicha = EstadoFicha.PROMESA;
             await queryRunner.manager.save(FichaVenta, ficha);
 
             if (ficha.hasFundit) {

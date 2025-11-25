@@ -14,3 +14,6 @@ export * from './cuota.entity';
 export * from './escritura.entity';
 export * from './entrega.entity';
 export * from './comision.entity';
+export * from './broker-company.entity';
+export * from './guaranteed-rent-benefit.entity';
+export * from './task.entity';

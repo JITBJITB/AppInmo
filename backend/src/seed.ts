@@ -13,6 +13,7 @@ import { Usuario } from './entities/usuario.entity';
 import { BrokerProyecto } from './entities/broker-proyecto.entity';
 import { UserRole } from './auth/roles.enum';
 import { Repository } from 'typeorm';
+import { EstadoFicha } from './sales/enums/estado-ficha.enum';
 
 async function bootstrap() {
     const app = await NestFactory.createApplicationContext(AppModule);
@@ -58,6 +59,36 @@ async function bootstrap() {
             rol: UserRole.BROKER_EXTERNO, // Assuming this role fits
             brokerCompany: brokerCompany
         });
+    }
+
+    // Create Fictitious Client with full details
+    const fictitiousClientRut = '12.345.678-9';
+    let fictitiousClient = await clienteRepo.findOne({ where: { rut: fictitiousClientRut } });
+    if (!fictitiousClient) {
+        console.log('Creating Fictitious Client Juan Perez...');
+        fictitiousClient = await clienteRepo.save({
+            nombre1: 'Juan',
+            nombre2: 'Andres',
+            apellido1: 'Perez',
+            apellido2: 'Gonzalez',
+            nombreCompleto: 'Juan Andres Perez Gonzalez',
+            rut: fictitiousClientRut,
+            email: 'juan.perez@example.com',
+            telefono: '+56912345678',
+            fechaNacimiento: new Date('1985-05-15'),
+            estadoCivil: 'Casado',
+            profesion: 'Ingeniero',
+            renta: 1500000,
+            nacionalidad: 'Chilena',
+            direccionCalle: 'Av. Libertador',
+            direccionNumero: '1234',
+            direccionComuna: 'Santiago',
+            direccionCiudad: 'Santiago',
+            direccionRegion: 'Metropolitana',
+            direccionPais: 'Chile'
+        });
+    } else {
+        console.log('Fictitious Client already exists.');
     }
 
     // PASO 2: Crear Proyecto
@@ -142,10 +173,12 @@ async function bootstrap() {
                 }
             }
 
+            // ... (inside bootstrap function)
+
             if (cliente) {
                 // Check if FichaVenta exists
                 let ficha = await fichaVentaRepo.findOne({
-                    where: { unidad: { id: unidad.id }, estadoFicha: estadoDb === 'Vendida' ? 'Promesa' : 'Reserva' } // Mapping DB state to Ficha state roughly
+                    where: { unidad: { id: unidad.id }, estadoFicha: estadoDb === 'Vendida' ? EstadoFicha.PROMESA : EstadoFicha.RESERVA } // Mapping DB state to Ficha state roughly
                 });
 
                 if (!ficha) {
@@ -153,7 +186,7 @@ async function bootstrap() {
                     ficha = await fichaVentaRepo.save({
                         unidad: unidad,
                         agente: brokerUser,
-                        estadoFicha: estadoDb === 'Vendida' ? 'Promesa' : 'Reserva', // Mapping logic
+                        estadoFicha: estadoDb === 'Vendida' ? EstadoFicha.PROMESA : EstadoFicha.RESERVA, // Mapping logic
                         valorTotalUf: unidad.valorUf,
                         folio: `FV-${unidad.nombre}-${Date.now()}`,
                         createdAt: item.fechaReserva ? new Date(item.fechaReserva) : new Date()

@@ -18,6 +18,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const ficha_venta_entity_1 = require("../entities/ficha-venta.entity");
 const usuario_entity_1 = require("../entities/usuario.entity");
+const roles_enum_1 = require("../auth/roles.enum");
 let CommissionsService = class CommissionsService {
     fichaRepository;
     usuarioRepository;
@@ -30,7 +31,7 @@ let CommissionsService = class CommissionsService {
         if (!ficha)
             throw new common_1.NotFoundException('Ficha no encontrada');
         const agent = await this.usuarioRepository.findOne({ where: { id: ficha.agenteId } });
-        if (!agent || agent.rol !== 'Broker') {
+        if (!agent || agent.rol !== roles_enum_1.UserRole.BROKER_EXTERNO) {
             return ficha;
         }
         const porcentaje = 2.0;
