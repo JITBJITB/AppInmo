@@ -30,6 +30,9 @@ export class Cuota {
     @Column({ name: 'fecha_pago', type: 'date', nullable: true })
     fechaPago: Date;
 
+    @Column({ name: 'comprobante_pago_url', nullable: true })
+    comprobantePagoUrl: string;
+
     @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
     createdAt: Date;
 }

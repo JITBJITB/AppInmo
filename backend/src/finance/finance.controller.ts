@@ -20,4 +20,10 @@ export class FinanceController {
     markAsPaid(@Param('id') id: string) {
         return this.financeService.markCuotaAsPaid(+id);
     }
+
+    @Get('fichas/:id/debt')
+    @Roles('Admin', 'Contabilidad', 'Gerencia')
+    getDebt(@Param('id') id: string) {
+        return this.financeService.recalculateDebt(+id);
+    }
 }

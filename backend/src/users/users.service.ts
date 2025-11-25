@@ -12,7 +12,15 @@ export class UsersService {
     ) { }
 
     async findOne(email: string): Promise<Usuario | null> {
-        return this.usersRepository.findOne({ where: { email } });
+        return this.usersRepository.findOne({ where: { email }, relations: ['brokerCompany'] });
+    }
+
+    async findOneById(id: number): Promise<Usuario | null> {
+        return this.usersRepository.findOne({ where: { id }, relations: ['brokerCompany'] });
+    }
+
+    async findAll(): Promise<Usuario[]> {
+        return this.usersRepository.find({ relations: ['brokerCompany'] });
     }
 
     async create(usuario: Partial<Usuario>): Promise<Usuario> {

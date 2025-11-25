@@ -43,6 +43,9 @@ export class FichaVenta {
     @Column({ name: 'credito_fundit_monto', type: 'decimal', precision: 12, scale: 2, default: 0 })
     creditoFunditMonto: number;
 
+    @Column({ name: 'has_fundit', default: false })
+    hasFundit: boolean;
+
     // Escritura
     @Column({ name: 'estado_escritura', default: 'Pendiente' })
     @Index()
