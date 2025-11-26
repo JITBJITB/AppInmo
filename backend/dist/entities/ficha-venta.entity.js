@@ -29,6 +29,8 @@ let FichaVenta = class FichaVenta {
     agente;
     estadoFicha;
     valorTotalUf;
+    descuentoPorcentaje;
+    valorDescuentoUf;
     bonoPie;
     creditoFunditMonto;
     hasFundit;
@@ -83,6 +85,14 @@ __decorate([
     (0, typeorm_1.Column)({ name: 'valor_total_uf', type: 'decimal', precision: 12, scale: 2 }),
     __metadata("design:type", Number)
 ], FichaVenta.prototype, "valorTotalUf", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'descuento_porcentaje', type: 'decimal', precision: 5, scale: 2, nullable: true }),
+    __metadata("design:type", Number)
+], FichaVenta.prototype, "descuentoPorcentaje", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'valor_descuento_uf', type: 'decimal', precision: 12, scale: 2, default: 0 }),
+    __metadata("design:type", Number)
+], FichaVenta.prototype, "valorDescuentoUf", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: 'bono_pie', default: false }),
     __metadata("design:type", Boolean)

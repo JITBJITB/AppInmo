@@ -1,0 +1,42 @@
+:host {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.floor-row {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.floor-row:hover {
+    background-color: #f0f0f0;
+}
+
+.floor-label {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    color: #555;
+    font-size: 0.9rem;
+    border-right: 1px solid #ddd;
+    padding-right: 15px;
+}
+
+.floor-label strong {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.units-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex: 1;
+}

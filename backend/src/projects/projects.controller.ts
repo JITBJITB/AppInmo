@@ -5,7 +5,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 
 @Controller('projects')
-@UseGuards(JwtAuthGuard, RolesGuard)
+// @UseGuards(JwtAuthGuard, RolesGuard) // Temporarily disabled for public access
 export class ProjectsController {
     constructor(private readonly projectsService: ProjectsService) { }
 

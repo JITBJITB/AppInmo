@@ -1,0 +1,29 @@
+<div class="building-viewer-container">
+    <div class="header-controls">
+        <h1>Disponibilidad Dinámica</h1>
+        <div class="selector-wrapper">
+            <label for="building-select">Seleccionar Edificio:</label>
+            <select id="building-select" (change)="onBuildingSelect($event)" [value]="selectedBuildingId">
+                <option *ngFor="let b of buildings" [value]="b.id">{{ b.name }}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="loading-indicator" *ngIf="loading">
+        Cargando datos del edificio...
+    </div>
+
+    <div class="matrix-container" *ngIf="buildingData && !loading">
+        <div class="building-info">
+            <h2>{{ buildingData.name }}</h2>
+            <div class="stats">
+                <span>Pisos: {{ buildingData.totalFloors }}</span>
+            </div>
+        </div>
+
+        <div class="floors-list">
+            <app-floor-row *ngFor="let floor of buildingData.floorStructure" [floor]="floor">
+            </app-floor-row>
+        </div>
+    </div>
+</div>

@@ -16,6 +16,8 @@ export declare class FichaVenta {
     agente: Usuario;
     estadoFicha: EstadoFicha;
     valorTotalUf: number;
+    descuentoPorcentaje: number;
+    valorDescuentoUf: number;
     bonoPie: boolean;
     creditoFunditMonto: number;
     hasFundit: boolean;

@@ -18,5 +18,6 @@ export const routes: Routes = [
     { path: 'clients/:id', component: ClientDetailComponent },
     { path: 'sales/new', component: SalesWizardComponent },
     { path: 'sales/:id', component: SalesDetailComponent },
-    { path: 'commissions', component: CommissionsListComponent }
+    { path: 'commissions', component: CommissionsListComponent },
+    { path: 'dynamic-inventory', loadComponent: () => import('./components/inventory/building-viewer/building-viewer.component').then(m => m.BuildingViewerComponent) }
 ];
