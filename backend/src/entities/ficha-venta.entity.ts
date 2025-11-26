@@ -39,6 +39,12 @@ export class FichaVenta {
     @Column({ name: 'valor_total_uf', type: 'decimal', precision: 12, scale: 2 })
     valorTotalUf: number;
 
+    @Column({ name: 'descuento_porcentaje', type: 'decimal', precision: 5, scale: 2, nullable: true })
+    descuentoPorcentaje: number;
+
+    @Column({ name: 'valor_descuento_uf', type: 'decimal', precision: 12, scale: 2, default: 0 })
+    valorDescuentoUf: number;
+
     @Column({ name: 'bono_pie', default: false })
     bonoPie: boolean;
 

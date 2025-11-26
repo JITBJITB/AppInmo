@@ -1,0 +1,24 @@
+<div class="unit-card" [ngClass]="statusClass">
+    <div class="unit-number">{{ unit.number }}</div>
+    <div class="unit-status-indicator"></div>
+
+    <!-- Tooltip -->
+    <div class="unit-tooltip">
+        <div class="tooltip-header">Unit {{ unit.number }}</div>
+        <div class="tooltip-row">
+            <span>Type:</span> <span>{{ unit.typology }}</span>
+        </div>
+        <div class="tooltip-row">
+            <span>Area:</span> <span>{{ unit.area }} m²</span>
+        </div>
+        <div class="tooltip-row">
+            <span>Orient:</span> <span>{{ unit.orientation }}</span>
+        </div>
+        <div class="tooltip-row price">
+            <span>Price:</span> <span>{{ unit.price | number }} UF</span>
+        </div>
+        <div class="tooltip-status" [ngClass]="statusClass">
+            {{ unit.status }}
+        </div>
+    </div>
+</div>

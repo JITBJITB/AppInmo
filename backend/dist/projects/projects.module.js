@@ -13,12 +13,14 @@ const projects_service_1 = require("./projects.service");
 const projects_controller_1 = require("./projects.controller");
 const proyecto_entity_1 = require("../entities/proyecto.entity");
 const unidad_entity_1 = require("../entities/unidad.entity");
+const adicional_entity_1 = require("../entities/adicional.entity");
+const broker_proyecto_entity_1 = require("../entities/broker-proyecto.entity");
 let ProjectsModule = class ProjectsModule {
 };
 exports.ProjectsModule = ProjectsModule;
 exports.ProjectsModule = ProjectsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([proyecto_entity_1.Proyecto, unidad_entity_1.Unidad])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([proyecto_entity_1.Proyecto, unidad_entity_1.Unidad, adicional_entity_1.Adicional, broker_proyecto_entity_1.BrokerProyecto])],
         controllers: [projects_controller_1.ProjectsController],
         providers: [projects_service_1.ProjectsService],
     })

@@ -55,12 +55,26 @@ export interface CuotaDto {
     fechaVencimiento: string;
 }
 
+export interface FormaPago {
+    reserva: number;
+    ahorro: number;
+    aporteInmobiliario: number;
+    creditoFundit: number;
+    creditoHipotecario: number;
+}
+
 export interface CreateFichaDto {
     unidadId: number;
     clienteId: number;
-    pieMonto: number;
-    reservaMonto: number;
-    cuotas: CuotaDto[];
+    descuentoPorcentaje?: number;
+    incluyeEstacionamiento: boolean;
+    incluyeBodega: boolean;
+    usaAporteInmobiliaria: boolean;
+    formaPago: FormaPago;
+    // Legacy fields kept for compatibility if needed, but should be replaced by formaPago
+    pieMonto?: number;
+    reservaMonto?: number;
+    cuotas?: CuotaDto[];
 }
 
 export interface FichaVenta {

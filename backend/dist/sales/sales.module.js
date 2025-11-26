@@ -17,12 +17,17 @@ const cliente_entity_1 = require("../entities/cliente.entity");
 const ficha_cliente_entity_1 = require("../entities/ficha-cliente.entity");
 const plan_pago_entity_1 = require("../entities/plan-pago.entity");
 const cuota_entity_1 = require("../entities/cuota.entity");
+const ficha_adicional_entity_1 = require("../entities/ficha-adicional.entity");
+const adicional_entity_1 = require("../entities/adicional.entity");
+const documento_venta_entity_1 = require("../entities/documento-venta.entity");
+const escritura_entity_1 = require("../entities/escritura.entity");
+const entrega_entity_1 = require("../entities/entrega.entity");
 let SalesModule = class SalesModule {
 };
 exports.SalesModule = SalesModule;
 exports.SalesModule = SalesModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([ficha_venta_entity_1.FichaVenta, unidad_entity_1.Unidad, cliente_entity_1.Cliente, ficha_cliente_entity_1.FichaCliente, plan_pago_entity_1.PlanPago, cuota_entity_1.Cuota])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([ficha_venta_entity_1.FichaVenta, unidad_entity_1.Unidad, cliente_entity_1.Cliente, ficha_cliente_entity_1.FichaCliente, plan_pago_entity_1.PlanPago, cuota_entity_1.Cuota, ficha_adicional_entity_1.FichaAdicional, adicional_entity_1.Adicional, documento_venta_entity_1.DocumentoVenta, escritura_entity_1.Escritura, entrega_entity_1.Entrega])],
         providers: [sales_service_1.SalesService],
         controllers: [sales_controller_1.SalesController],
         exports: [sales_service_1.SalesService]
