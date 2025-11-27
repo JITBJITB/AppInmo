@@ -21,7 +21,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
       host: 'localhost',
       port: 5433,
       username: 'postgres',
-      password: 'adminpassword',
+      password: 'Xav123qwe.',
       database: 'inmoapp_db',
       autoLoadEntities: true,
       synchronize: false,
