@@ -30,4 +30,7 @@ __exportStar(require("./cuota.entity"), exports);
 __exportStar(require("./escritura.entity"), exports);
 __exportStar(require("./entrega.entity"), exports);
 __exportStar(require("./comision.entity"), exports);
+__exportStar(require("./broker-company.entity"), exports);
+__exportStar(require("./guaranteed-rent-benefit.entity"), exports);
+__exportStar(require("./task.entity"), exports);
 //# sourceMappingURL=index.js.map

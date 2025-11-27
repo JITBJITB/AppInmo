@@ -40,7 +40,7 @@ __decorate([
     __metadata("design:type", proyecto_entity_1.Proyecto)
 ], Unidad.prototype, "proyecto", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ length: 100 }),
     __metadata("design:type", String)
 ], Unidad.prototype, "nombre", void 0);
 __decorate([

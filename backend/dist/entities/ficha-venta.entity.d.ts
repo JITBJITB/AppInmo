@@ -6,6 +6,7 @@ import { DocumentoVenta } from './documento-venta.entity';
 import { PlanPago } from './plan-pago.entity';
 import { Escritura } from './escritura.entity';
 import { Entrega } from './entrega.entity';
+import { EstadoFicha } from '../sales/enums/estado-ficha.enum';
 export declare class FichaVenta {
     id: number;
     folio: string;
@@ -13,10 +14,13 @@ export declare class FichaVenta {
     unidad: Unidad;
     agenteId: number;
     agente: Usuario;
-    estadoFicha: string;
+    estadoFicha: EstadoFicha;
     valorTotalUf: number;
+    descuentoPorcentaje: number;
+    valorDescuentoUf: number;
     bonoPie: boolean;
     creditoFunditMonto: number;
+    hasFundit: boolean;
     estadoEscritura: string;
     bancoHipotecario: string;
     montoHipotecario: number;

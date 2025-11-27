@@ -19,6 +19,7 @@ const documento_venta_entity_1 = require("./documento-venta.entity");
 const plan_pago_entity_1 = require("./plan-pago.entity");
 const escritura_entity_1 = require("./escritura.entity");
 const entrega_entity_1 = require("./entrega.entity");
+const estado_ficha_enum_1 = require("../sales/enums/estado-ficha.enum");
 let FichaVenta = class FichaVenta {
     id;
     folio;
@@ -28,8 +29,11 @@ let FichaVenta = class FichaVenta {
     agente;
     estadoFicha;
     valorTotalUf;
+    descuentoPorcentaje;
+    valorDescuentoUf;
     bonoPie;
     creditoFunditMonto;
+    hasFundit;
     estadoEscritura;
     bancoHipotecario;
     montoHipotecario;
@@ -73,7 +77,7 @@ __decorate([
     __metadata("design:type", usuario_entity_1.Usuario)
 ], FichaVenta.prototype, "agente", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'estado_ficha', default: 'Borrador' }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: estado_ficha_enum_1.EstadoFicha, default: estado_ficha_enum_1.EstadoFicha.BORRADOR, name: 'estado_ficha' }),
     (0, typeorm_1.Index)(),
     __metadata("design:type", String)
 ], FichaVenta.prototype, "estadoFicha", void 0);
@@ -82,6 +86,14 @@ __decorate([
     __metadata("design:type", Number)
 ], FichaVenta.prototype, "valorTotalUf", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ name: 'descuento_porcentaje', type: 'decimal', precision: 5, scale: 2, nullable: true }),
+    __metadata("design:type", Number)
+], FichaVenta.prototype, "descuentoPorcentaje", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'valor_descuento_uf', type: 'decimal', precision: 12, scale: 2, default: 0 }),
+    __metadata("design:type", Number)
+], FichaVenta.prototype, "valorDescuentoUf", void 0);
+__decorate([
     (0, typeorm_1.Column)({ name: 'bono_pie', default: false }),
     __metadata("design:type", Boolean)
 ], FichaVenta.prototype, "bonoPie", void 0);
@@ -89,6 +101,10 @@ __decorate([
     (0, typeorm_1.Column)({ name: 'credito_fundit_monto', type: 'decimal', precision: 12, scale: 2, default: 0 }),
     __metadata("design:type", Number)
 ], FichaVenta.prototype, "creditoFunditMonto", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'has_fundit', default: false }),
+    __metadata("design:type", Boolean)
+], FichaVenta.prototype, "hasFundit", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: 'estado_escritura', default: 'Pendiente' }),
     (0, typeorm_1.Index)(),

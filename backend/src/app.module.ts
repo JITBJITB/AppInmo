@@ -19,8 +19,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5432,
-      username: 'admin',
+      port: 5433,
+      username: 'postgres',
       password: 'adminpassword',
       database: 'inmoapp_db',
       autoLoadEntities: true,

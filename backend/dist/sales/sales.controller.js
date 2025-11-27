@@ -18,6 +18,7 @@ const sales_service_1 = require("./sales.service");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const roles_guard_1 = require("../auth/roles.guard");
 const roles_decorator_1 = require("../auth/roles.decorator");
+const create_ficha_venta_dto_1 = require("./dto/create-ficha-venta.dto");
 let SalesController = class SalesController {
     salesService;
     constructor(salesService) {
@@ -26,11 +27,17 @@ let SalesController = class SalesController {
     create(createFichaDto, req) {
         return this.salesService.createFicha(createFichaDto, req.user.userId);
     }
+    generateCotizacion(createFichaDto) {
+        return this.salesService.generateCotizacion(createFichaDto);
+    }
     findAll() {
         return this.salesService.findAll();
     }
     findOne(id) {
         return this.salesService.findOne(+id);
+    }
+    approve(id) {
+        return this.salesService.approveFicha(+id);
     }
 };
 exports.SalesController = SalesController;
@@ -40,9 +47,17 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [create_ficha_venta_dto_1.CreateFichaVentaDto, Object]),
     __metadata("design:returntype", void 0)
 ], SalesController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('cotizacion'),
+    (0, roles_decorator_1.Roles)('Agente', 'Broker', 'Admin'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_ficha_venta_dto_1.CreateFichaVentaDto]),
+    __metadata("design:returntype", Promise)
+], SalesController.prototype, "generateCotizacion", null);
 __decorate([
     (0, common_1.Get)(),
     (0, roles_decorator_1.Roles)('Agente', 'Broker', 'Admin'),
@@ -58,6 +73,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], SalesController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Post)(':id/approve'),
+    (0, roles_decorator_1.Roles)('Gerencia', 'Admin'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], SalesController.prototype, "approve", null);
 exports.SalesController = SalesController = __decorate([
     (0, common_1.Controller)('sales'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),

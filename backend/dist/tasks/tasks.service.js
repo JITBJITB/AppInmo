@@ -20,6 +20,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const unidad_entity_1 = require("../entities/unidad.entity");
 const ficha_venta_entity_1 = require("../entities/ficha-venta.entity");
+const estado_ficha_enum_1 = require("../sales/enums/estado-ficha.enum");
 let TasksService = TasksService_1 = class TasksService {
     unidadRepository;
     fichaVentaRepository;
@@ -34,7 +35,7 @@ let TasksService = TasksService_1 = class TasksService {
         expirationDate.setHours(expirationDate.getHours() - 48);
         const expiredFichas = await this.fichaVentaRepository.find({
             where: {
-                estadoFicha: 'Borrador',
+                estadoFicha: estado_ficha_enum_1.EstadoFicha.BORRADOR,
                 createdAt: (0, typeorm_2.LessThan)(expirationDate),
             },
             relations: ['unidad'],
@@ -45,7 +46,7 @@ let TasksService = TasksService_1 = class TasksService {
         }
         this.logger.log(`Found ${expiredFichas.length} expired reservations. Processing...`);
         for (const ficha of expiredFichas) {
-            ficha.estadoFicha = 'Vencida';
+            ficha.estadoFicha = estado_ficha_enum_1.EstadoFicha.VENCIDA;
             await this.fichaVentaRepository.save(ficha);
             if (ficha.unidad) {
                 ficha.unidad.estado = 'Disponible';

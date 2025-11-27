@@ -15,6 +15,10 @@ export class SalesService {
     return this.http.post<FichaVenta>(this.apiUrl, data);
   }
 
+  generateCotizacion(data: CreateFichaDto): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/cotizacion`, data);
+  }
+
   getOne(id: number): Observable<FichaVenta> {
     return this.http.get<FichaVenta>(`${this.apiUrl}/${id}`);
   }

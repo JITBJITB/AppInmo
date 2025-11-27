@@ -29,6 +29,9 @@ let FinanceController = class FinanceController {
     markAsPaid(id) {
         return this.financeService.markCuotaAsPaid(+id);
     }
+    getDebt(id) {
+        return this.financeService.recalculateDebt(+id);
+    }
 };
 exports.FinanceController = FinanceController;
 __decorate([
@@ -47,6 +50,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], FinanceController.prototype, "markAsPaid", null);
+__decorate([
+    (0, common_1.Get)('fichas/:id/debt'),
+    (0, roles_decorator_1.Roles)('Admin', 'Contabilidad', 'Gerencia'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], FinanceController.prototype, "getDebt", null);
 exports.FinanceController = FinanceController = __decorate([
     (0, common_1.Controller)('finance'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),

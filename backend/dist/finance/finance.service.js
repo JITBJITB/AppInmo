@@ -47,6 +47,22 @@ let FinanceService = class FinanceService {
         cuota.fechaPago = new Date();
         return this.cuotaRepository.save(cuota);
     }
+    async recalculateDebt(fichaId) {
+        const plan = await this.planPagoRepository.findOne({
+            where: { fichaVentaId: fichaId },
+            relations: ['cuotas']
+        });
+        if (!plan)
+            throw new common_1.NotFoundException('Plan de pago no encontrado');
+        const cuotasPendientes = plan.cuotas.filter(c => c.estado === 'Pendiente');
+        const totalDeuda = cuotasPendientes.reduce((sum, c) => sum + Number(c.montoCuota), 0);
+        plan.saldoAPagar = totalDeuda;
+        await this.planPagoRepository.save(plan);
+        return {
+            totalDeuda,
+            cuotasPendientes: cuotasPendientes.length
+        };
+    }
 };
 exports.FinanceService = FinanceService;
 exports.FinanceService = FinanceService = __decorate([
