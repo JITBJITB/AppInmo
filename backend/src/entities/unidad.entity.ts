@@ -14,7 +14,7 @@ export class Unidad {
     @JoinColumn({ name: 'proyecto_id' })
     proyecto: Proyecto;
 
-    @Column()
+    @Column({ length: 100 })
     nombre: string;
 
     @Column({ nullable: true })

@@ -7,6 +7,7 @@ export interface Unidad {
     piso: number;
     valorUf: number;
     estado: 'Disponible' | 'Reservada' | 'Vendida';
+    reservaExpiraEn?: string; // Optional: expiration date for reserved units
 }
 
 export interface Proyecto {

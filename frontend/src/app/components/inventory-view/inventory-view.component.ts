@@ -28,11 +28,32 @@ export class InventoryViewComponent implements OnInit {
     });
   }
 
+  floors: { floorNumber: number, units: Unidad[] }[] = [];
+
   loadUnits() {
     this.projectsService.getUnits(this.projectId).subscribe(data => {
       this.units = data;
       this.filteredUnits = data;
+      this.groupUnitsByFloor();
     });
+  }
+
+  groupUnitsByFloor() {
+    const grouped = this.filteredUnits.reduce((acc, unit) => {
+      const floor = unit.piso;
+      if (!acc[floor]) {
+        acc[floor] = [];
+      }
+      acc[floor].push(unit);
+      return acc;
+    }, {} as { [key: number]: Unidad[] });
+
+    this.floors = Object.keys(grouped)
+      .map(floor => ({
+        floorNumber: +floor,
+        units: grouped[+floor].sort((a, b) => a.nombre.localeCompare(b.nombre))
+      }))
+      .sort((a, b) => b.floorNumber - a.floorNumber); // Sort floors descending (top to bottom)
   }
 
   getStatusColor(status: string): string {
