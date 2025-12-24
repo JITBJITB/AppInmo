@@ -8,11 +8,10 @@ import { DeedTrackingComponent } from '../post-sales/deed-tracking/deed-tracking
 import { DeliveryActComponent } from '../post-sales/delivery-act/delivery-act.component';
 
 @Component({
-  selector: 'app-sales-detail',
-  standalone: true,
-  imports: [CommonModule, PaymentPlanComponent, DeedTrackingComponent, DeliveryActComponent],
-  templateUrl: './sales-detail.component.html',
-  styleUrls: ['./sales-detail.component.css']
+    selector: 'app-sales-detail',
+    imports: [CommonModule, PaymentPlanComponent, DeedTrackingComponent, DeliveryActComponent],
+    templateUrl: './sales-detail.component.html',
+    styleUrls: ['./sales-detail.component.css']
 })
 export class SalesDetailComponent implements OnInit {
   ficha: FichaVenta | null = null;

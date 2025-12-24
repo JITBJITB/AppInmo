@@ -4,7 +4,6 @@ import { UnitDTO } from '../../../models/inventory.model';
 
 @Component({
     selector: 'app-unit-card',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './unit-card.component.html',
     styleUrls: ['./unit-card.component.css']

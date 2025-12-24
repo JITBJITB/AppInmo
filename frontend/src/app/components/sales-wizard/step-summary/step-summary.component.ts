@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Unidad, Cliente, CreateFichaDto } from '../../../models';
 
 @Component({
-  selector: 'app-step-summary',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './step-summary.component.html',
-  styleUrls: ['./step-summary.component.css']
+    selector: 'app-step-summary',
+    imports: [CommonModule],
+    templateUrl: './step-summary.component.html',
+    styleUrls: ['./step-summary.component.css']
 })
 export class StepSummaryComponent {
   @Input() unit: Unidad | null = null;
