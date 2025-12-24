@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { getRepositoryToken } from '@nestjs/typeorm';
@@ -14,6 +15,7 @@ import { BrokerProyecto } from './entities/broker-proyecto.entity';
 import { UserRole } from './auth/roles.enum';
 import { Repository } from 'typeorm';
 import { EstadoFicha } from './sales/enums/estado-ficha.enum';
+
 
 async function bootstrap() {
     const app = await NestFactory.createApplicationContext(AppModule);
