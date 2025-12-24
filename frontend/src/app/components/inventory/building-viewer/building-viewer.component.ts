@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { InventoryService } from '../../../services/inventory.service';
 import { BuildingResponseDTO } from '../../../models/inventory.model';
 import { FloorRowComponent } from '../floor-row/floor-row.component';
 
 @Component({
     selector: 'app-building-viewer',
-    standalone: true,
-    imports: [CommonModule, FloorRowComponent],
+    imports: [FloorRowComponent],
     templateUrl: './building-viewer.component.html',
     styleUrls: ['./building-viewer.component.css']
 })

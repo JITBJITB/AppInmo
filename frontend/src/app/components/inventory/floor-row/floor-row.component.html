@@ -1,10 +1,12 @@
 <div class="floor-row">
-    <div class="floor-label">
-        <span>Piso</span>
-        <strong>{{ floor.floorNumber }}</strong>
-    </div>
-    <div class="units-container">
-        <app-unit-card *ngFor="let unit of floor.units" [unit]="unit">
-        </app-unit-card>
-    </div>
+  <div class="floor-label">
+    <span>Piso</span>
+    <strong>{{ floor.floorNumber }}</strong>
+  </div>
+  <div class="units-container">
+    @for (unit of floor.units; track unit) {
+      <app-unit-card [unit]="unit">
+      </app-unit-card>
+    }
+  </div>
 </div>

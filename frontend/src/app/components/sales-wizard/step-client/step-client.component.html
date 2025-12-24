@@ -1,40 +1,44 @@
 <div class="space-y-6">
-    <h2 class="text-xl font-semibold text-gray-800">Seleccionar Cliente</h2>
+  <h2 class="text-xl font-semibold text-gray-800">Seleccionar Cliente</h2>
 
-    <div class="flex space-x-2">
-        <input type="text" [(ngModel)]="searchTerm" (keyup.enter)="search()" placeholder="Buscar por nombre o RUT..."
-            class="flex-1 p-2 border rounded">
-        <button (click)="search()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buscar</button>
+  <div class="flex space-x-2">
+    <input type="text" [(ngModel)]="searchTerm" (keyup.enter)="search()" placeholder="Buscar por nombre o RUT..."
+      class="flex-1 p-2 border rounded">
+      <button (click)="search()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buscar</button>
     </div>
 
-    <div *ngIf="clients.length > 0" class="border rounded overflow-hidden">
+    @if (clients.length > 0) {
+      <div class="border rounded overflow-hidden">
         <table class="min-w-full">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-4 py-2 text-left">Nombre</th>
-                    <th class="px-4 py-2 text-left">RUT</th>
-                    <th class="px-4 py-2 text-left">Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let client of clients" [class.bg-blue-50]="selectedClient?.id === client.id"
-                    class="border-t hover:bg-gray-50">
-                    <td class="px-4 py-2">{{ client.nombreCompleto }}</td>
-                    <td class="px-4 py-2">{{ client.rut }}</td>
-                    <td class="px-4 py-2">
-                        <button (click)="selectClient(client)"
-                            class="text-blue-600 hover:underline">Seleccionar</button>
-                    </td>
-                </tr>
-            </tbody>
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-2 text-left">Nombre</th>
+              <th class="px-4 py-2 text-left">RUT</th>
+              <th class="px-4 py-2 text-left">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (client of clients; track client) {
+              <tr [class.bg-blue-50]="selectedClient?.id === client.id"
+                class="border-t hover:bg-gray-50">
+                <td class="px-4 py-2">{{ client.nombreCompleto }}</td>
+                <td class="px-4 py-2">{{ client.rut }}</td>
+                <td class="px-4 py-2">
+                  <button (click)="selectClient(client)"
+                  class="text-blue-600 hover:underline">Seleccionar</button>
+                </td>
+              </tr>
+            }
+          </tbody>
         </table>
-    </div>
+      </div>
+    }
 
     <div class="flex justify-between mt-6">
-        <button (click)="back.emit()" class="text-gray-600 hover:text-gray-800">Atrás</button>
-        <button (click)="confirm()" [disabled]="!selectedClient"
-            class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
-            Siguiente
-        </button>
+      <button (click)="back.emit()" class="text-gray-600 hover:text-gray-800">Atrás</button>
+      <button (click)="confirm()" [disabled]="!selectedClient"
+        class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
+        Siguiente
+      </button>
     </div>
-</div>
+  </div>

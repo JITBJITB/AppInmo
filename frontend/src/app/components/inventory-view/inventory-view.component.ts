@@ -5,11 +5,10 @@ import { ProjectsService } from '../../services/projects.service';
 import { Unidad, Proyecto } from '../../models';
 
 @Component({
-  selector: 'app-inventory-view',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './inventory-view.component.html',
-  styleUrls: ['./inventory-view.component.css']
+    selector: 'app-inventory-view',
+    imports: [CommonModule],
+    templateUrl: './inventory-view.component.html',
+    styleUrls: ['./inventory-view.component.css']
 })
 export class InventoryViewComponent implements OnInit {
   units: Unidad[] = [];
@@ -51,7 +50,14 @@ export class InventoryViewComponent implements OnInit {
     this.floors = Object.keys(grouped)
       .map(floor => ({
         floorNumber: +floor,
-        units: grouped[+floor].sort((a, b) => a.nombre.localeCompare(b.nombre))
+        units: grouped[+floor].sort((a, b) => {
+          // Extraer los últimos 2 dígitos del nombre (D-201 -> 01, D-S1015 -> 15)
+          const getLastTwoDigits = (name: string) => {
+            const match = name.match(/(\d{2})$/);
+            return match ? parseInt(match[1]) : 0;
+          };
+          return getLastTwoDigits(a.nombre) - getLastTwoDigits(b.nombre);
+        })
       }))
       .sort((a, b) => b.floorNumber - a.floorNumber); // Sort floors descending (top to bottom)
   }

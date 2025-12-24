@@ -33,7 +33,7 @@ exports.AppModule = AppModule = __decorate([
                 host: 'localhost',
                 port: 5433,
                 username: 'postgres',
-                password: 'adminpassword',
+                password: 'Xav123qwe.',
                 database: 'inmoapp_db',
                 autoLoadEntities: true,
                 synchronize: false,

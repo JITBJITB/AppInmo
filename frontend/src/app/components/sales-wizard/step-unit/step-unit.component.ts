@@ -5,11 +5,10 @@ import { Proyecto, Unidad } from '../../../models';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-step-unit',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './step-unit.component.html',
-  styleUrls: ['./step-unit.component.css']
+    selector: 'app-step-unit',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './step-unit.component.html',
+    styleUrls: ['./step-unit.component.css']
 })
 export class StepUnitComponent implements OnInit {
   @Output() unitSelected = new EventEmitter<Unidad>();

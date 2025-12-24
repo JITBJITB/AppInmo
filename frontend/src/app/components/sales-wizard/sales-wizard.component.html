@@ -1,68 +1,76 @@
 <div class="container mx-auto p-4">
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-4">Nueva Venta</h1>
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Nueva Venta</h1>
 
-        <!-- Stepper -->
-        <div class="flex items-center justify-between mb-8">
-            <div class="flex flex-col items-center" [class.text-blue-600]="currentStep >= 1"
-                [class.text-gray-400]="currentStep < 1">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 font-bold mb-2"
-                    [class.border-blue-600]="currentStep >= 1" [class.bg-blue-600]="currentStep > 1"
-                    [class.text-white]="currentStep > 1">
-                    1
-                </div>
-                <span class="text-sm">Unidad</span>
-            </div>
-            <div class="flex-1 h-1 bg-gray-200 mx-4" [class.bg-blue-600]="currentStep > 1"></div>
-
-            <div class="flex flex-col items-center" [class.text-blue-600]="currentStep >= 2"
-                [class.text-gray-400]="currentStep < 2">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 font-bold mb-2"
-                    [class.border-blue-600]="currentStep >= 2" [class.bg-blue-600]="currentStep > 2"
-                    [class.text-white]="currentStep > 2">
-                    2
-                </div>
-                <span class="text-sm">Cliente</span>
-            </div>
-            <div class="flex-1 h-1 bg-gray-200 mx-4" [class.bg-blue-600]="currentStep > 2"></div>
-
-            <div class="flex flex-col items-center" [class.text-blue-600]="currentStep >= 3"
-                [class.text-gray-400]="currentStep < 3">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 font-bold mb-2"
-                    [class.border-blue-600]="currentStep >= 3" [class.bg-blue-600]="currentStep > 3"
-                    [class.text-white]="currentStep > 3">
-                    3
-                </div>
-                <span class="text-sm">Pago</span>
-            </div>
-            <div class="flex-1 h-1 bg-gray-200 mx-4" [class.bg-blue-600]="currentStep > 3"></div>
-
-            <div class="flex flex-col items-center" [class.text-blue-600]="currentStep >= 4"
-                [class.text-gray-400]="currentStep < 4">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 font-bold mb-2"
-                    [class.border-blue-600]="currentStep >= 4" [class.bg-blue-600]="currentStep >= 4"
-                    [class.text-white]="currentStep >= 4">
-                    4
-                </div>
-                <span class="text-sm">Resumen</span>
-            </div>
+    <!-- Stepper -->
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex flex-col items-center" [class.text-blue-600]="currentStep >= 1"
+        [class.text-gray-400]="currentStep < 1">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 font-bold mb-2"
+          [class.border-blue-600]="currentStep >= 1" [class.bg-blue-600]="currentStep > 1"
+          [class.text-white]="currentStep > 1">
+          1
         </div>
+        <span class="text-sm">Unidad</span>
+      </div>
+      <div class="flex-1 h-1 bg-gray-200 mx-4" [class.bg-blue-600]="currentStep > 1"></div>
+
+      <div class="flex flex-col items-center" [class.text-blue-600]="currentStep >= 2"
+        [class.text-gray-400]="currentStep < 2">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 font-bold mb-2"
+          [class.border-blue-600]="currentStep >= 2" [class.bg-blue-600]="currentStep > 2"
+          [class.text-white]="currentStep > 2">
+          2
+        </div>
+        <span class="text-sm">Cliente</span>
+      </div>
+      <div class="flex-1 h-1 bg-gray-200 mx-4" [class.bg-blue-600]="currentStep > 2"></div>
+
+      <div class="flex flex-col items-center" [class.text-blue-600]="currentStep >= 3"
+        [class.text-gray-400]="currentStep < 3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 font-bold mb-2"
+          [class.border-blue-600]="currentStep >= 3" [class.bg-blue-600]="currentStep > 3"
+          [class.text-white]="currentStep > 3">
+          3
+        </div>
+        <span class="text-sm">Pago</span>
+      </div>
+      <div class="flex-1 h-1 bg-gray-200 mx-4" [class.bg-blue-600]="currentStep > 3"></div>
+
+      <div class="flex flex-col items-center" [class.text-blue-600]="currentStep >= 4"
+        [class.text-gray-400]="currentStep < 4">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 font-bold mb-2"
+          [class.border-blue-600]="currentStep >= 4" [class.bg-blue-600]="currentStep >= 4"
+          [class.text-white]="currentStep >= 4">
+          4
+        </div>
+        <span class="text-sm">Resumen</span>
+      </div>
     </div>
+  </div>
 
-    <!-- Steps Content -->
-    <div class="bg-white rounded-lg shadow-lg p-6">
-        <app-step-unit *ngIf="currentStep === 1" (unitSelected)="onUnitSelected($event)"></app-step-unit>
+  <!-- Steps Content -->
+  <div class="bg-white rounded-lg shadow-lg p-6">
+    @if (currentStep === 1) {
+      <app-step-unit (unitSelected)="onUnitSelected($event)"></app-step-unit>
+    }
 
-        <app-step-client *ngIf="currentStep === 2" (clientSelected)="onClientSelected($event)" (back)="prevStep()">
-        </app-step-client>
+    @if (currentStep === 2) {
+      <app-step-client (clientSelected)="onClientSelected($event)" (back)="prevStep()">
+      </app-step-client>
+    }
 
-        <app-step-payment *ngIf="currentStep === 3" [unitValue]="selectedUnit?.valorUf ?? 0"
-            (paymentDefined)="onPaymentDefined($event)" (generateCotizacion)="onGenerateCotizacion($event)"
-            (back)="prevStep()">
-        </app-step-payment>
+    @if (currentStep === 3) {
+      <app-step-payment [unitValue]="selectedUnit?.valorUf ?? 0"
+        (paymentDefined)="onPaymentDefined($event)" (generateCotizacion)="onGenerateCotizacion($event)"
+        (back)="prevStep()">
+      </app-step-payment>
+    }
 
-        <app-step-summary *ngIf="currentStep === 4" [unit]="selectedUnit" [client]="selectedClient"
-            [fichaData]="fichaData" (confirm)="confirmSale()" (back)="prevStep()">
-        </app-step-summary>
-    </div>
+    @if (currentStep === 4) {
+      <app-step-summary [unit]="selectedUnit" [client]="selectedClient"
+        [fichaData]="fichaData" (confirm)="confirmSale()" (back)="prevStep()">
+      </app-step-summary>
+    }
+  </div>
 </div>

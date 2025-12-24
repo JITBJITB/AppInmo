@@ -1,24 +1,32 @@
 <div class="space-y-6">
-    <h2 class="text-xl font-semibold text-gray-800">Seleccionar Unidad</h2>
+  <h2 class="text-xl font-semibold text-gray-800">Seleccionar Unidad</h2>
 
-    <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Proyecto</label>
-        <select [(ngModel)]="selectedProjectId" (change)="onProjectChange()" class="w-full p-2 border rounded">
-            <option [ngValue]="null">Seleccione un proyecto...</option>
-            <option *ngFor="let p of projects" [value]="p.id">{{ p.nombre }}</option>
-        </select>
-    </div>
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-2">Proyecto</label>
+    <select [(ngModel)]="selectedProjectId" (change)="onProjectChange()" class="w-full p-2 border rounded">
+      <option [ngValue]="null">Seleccione un proyecto...</option>
+      @for (p of projects; track p) {
+        <option [value]="p.id">{{ p.nombre }}</option>
+      }
+    </select>
+  </div>
 
-    <div *ngIf="units.length > 0" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div *ngFor="let unit of units" (click)="selectUnit(unit)"
-            class="p-4 border rounded cursor-pointer hover:bg-blue-50 hover:border-blue-500 transition-colors">
-            <div class="font-bold">{{ unit.nombre }}</div>
-            <div class="text-sm text-gray-600">{{ unit.tipologia }}</div>
-            <div class="text-sm font-semibold mt-2">{{ unit.valorUf | number:'1.0-0' }} UF</div>
+  @if (units.length > 0) {
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      @for (unit of units; track unit) {
+        <div (click)="selectUnit(unit)"
+          class="p-4 border rounded cursor-pointer hover:bg-blue-50 hover:border-blue-500 transition-colors">
+          <div class="font-bold">{{ unit.nombre }}</div>
+          <div class="text-sm text-gray-600">{{ unit.tipologia }}</div>
+          <div class="text-sm font-semibold mt-2">{{ unit.valorUf | number:'1.0-0' }} UF</div>
         </div>
+      }
     </div>
+  }
 
-    <div *ngIf="selectedProjectId && units.length === 0" class="text-center text-gray-500 py-8">
-        No hay unidades disponibles en este proyecto.
+  @if (selectedProjectId && units.length === 0) {
+    <div class="text-center text-gray-500 py-8">
+      No hay unidades disponibles en este proyecto.
     </div>
+  }
 </div>

@@ -1,66 +1,79 @@
 <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-6 text-gray-800">Gestión de Comisiones</h1>
+  <h1 class="text-2xl font-bold mb-6 text-gray-800">Gestión de Comisiones</h1>
 
-    <div *ngIf="loading" class="text-center py-4">Cargando...</div>
+  @if (loading) {
+    <div class="text-center py-4">Cargando...</div>
+  }
 
-    <div *ngIf="!loading" class="bg-white shadow overflow-hidden sm:rounded-lg">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Folio
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unidad
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Agente
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor
-                        Venta</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comisión
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                <tr *ngFor="let ficha of commissions">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ ficha.folio }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ ficha.unidad.nombre }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ ficha.agente?.nombre }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ ficha.valorTotalUf | number:'1.0-0'
-                        }} UF</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{{ ficha.comisionBrokerMonto
-                        | number:'1.0-0' }} UF</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
-                            [ngClass]="getBadgeClass(ficha.estadoComisionBroker)">
-                            {{ ficha.estadoComisionBroker }}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <!-- Broker Actions -->
-                        <button *ngIf="userRole === 'Broker' && ficha.estadoComisionBroker === 'Pendiente'"
-                            (click)="updateStatus(ficha, 'Solicitar Factura')"
-                            class="text-indigo-600 hover:text-indigo-900">
-                            Solicitar Factura
-                        </button>
-
-                        <!-- Admin Actions -->
-                        <div *ngIf="userRole === 'Admin' || userRole === 'Contabilidad'" class="space-x-2">
-                            <button *ngIf="ficha.estadoComisionBroker === 'Solicitar Factura'"
-                                (click)="updateStatus(ficha, 'Factura Recibida')"
-                                class="text-blue-600 hover:text-blue-900">
-                                Recibir Factura
-                            </button>
-                            <button *ngIf="ficha.estadoComisionBroker === 'Factura Recibida'"
-                                (click)="updateStatus(ficha, 'Pagada')" class="text-green-600 hover:text-green-900">
-                                Pagar
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+  @if (!loading) {
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Folio
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unidad
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Agente
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor
+            Venta</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comisión
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          @for (ficha of commissions; track ficha) {
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ ficha.folio }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ ficha.unidad.nombre }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ ficha.agente?.nombre }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ ficha.valorTotalUf | number:'1.0-0'
+              }} UF</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{{ ficha.comisionBrokerMonto
+              | number:'1.0-0' }} UF</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                  [ngClass]="getBadgeClass(ficha.estadoComisionBroker)">
+                  {{ ficha.estadoComisionBroker }}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <!-- Broker Actions -->
+                @if (userRole === 'Broker' && ficha.estadoComisionBroker === 'Pendiente') {
+                  <button
+                    (click)="updateStatus(ficha, 'Solicitar Factura')"
+                    class="text-indigo-600 hover:text-indigo-900">
+                    Solicitar Factura
+                  </button>
+                }
+                <!-- Admin Actions -->
+                @if (userRole === 'Admin' || userRole === 'Contabilidad') {
+                  <div class="space-x-2">
+                    @if (ficha.estadoComisionBroker === 'Solicitar Factura') {
+                      <button
+                        (click)="updateStatus(ficha, 'Factura Recibida')"
+                        class="text-blue-600 hover:text-blue-900">
+                        Recibir Factura
+                      </button>
+                    }
+                    @if (ficha.estadoComisionBroker === 'Factura Recibida') {
+                      <button
+                        (click)="updateStatus(ficha, 'Pagada')" class="text-green-600 hover:text-green-900">
+                        Pagar
+                      </button>
+                    }
+                  </div>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
     </div>
+  }
 </div>

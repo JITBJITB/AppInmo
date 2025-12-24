@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { StepUnitComponent } from './step-unit/step-unit.component';
 import { StepClientComponent } from './step-client/step-client.component';
@@ -10,11 +10,10 @@ import { SalesService } from '../../services/sales.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sales-wizard',
-  standalone: true,
-  imports: [CommonModule, RouterModule, StepUnitComponent, StepClientComponent, StepPaymentComponent, StepSummaryComponent],
-  templateUrl: './sales-wizard.component.html',
-  styleUrls: ['./sales-wizard.component.css']
+    selector: 'app-sales-wizard',
+    imports: [RouterModule, StepUnitComponent, StepClientComponent, StepPaymentComponent, StepSummaryComponent],
+    templateUrl: './sales-wizard.component.html',
+    styleUrls: ['./sales-wizard.component.css']
 })
 export class SalesWizardComponent {
   currentStep = 1;
