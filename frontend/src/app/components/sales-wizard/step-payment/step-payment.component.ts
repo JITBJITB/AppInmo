@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { FormaPago } from '../../../models';
 
 @Component({
-  selector: 'app-step-payment',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './step-payment.component.html',
-  styleUrls: ['./step-payment.component.css']
+    selector: 'app-step-payment',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './step-payment.component.html',
+    styleUrls: ['./step-payment.component.css']
 })
 export class StepPaymentComponent implements OnChanges {
   @Input() unitValue: number = 0;

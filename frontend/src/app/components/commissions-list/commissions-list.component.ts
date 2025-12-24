@@ -5,10 +5,9 @@ import { AuthService } from '../../services/auth.service';
 import { FichaVenta } from '../../models';
 
 @Component({
-  selector: 'app-commissions-list',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './commissions-list.component.html'
+    selector: 'app-commissions-list',
+    imports: [CommonModule],
+    templateUrl: './commissions-list.component.html'
 })
 export class CommissionsListComponent implements OnInit {
   commissions: FichaVenta[] = [];

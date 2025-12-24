@@ -4,11 +4,10 @@ import { FinanceService } from '../../services/finance.service';
 import { PlanPago, Cuota } from '../../models';
 
 @Component({
-  selector: 'app-payment-plan',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './payment-plan.component.html',
-  styleUrls: ['./payment-plan.component.css']
+    selector: 'app-payment-plan',
+    imports: [CommonModule],
+    templateUrl: './payment-plan.component.html',
+    styleUrls: ['./payment-plan.component.css']
 })
 export class PaymentPlanComponent implements OnInit {
   @Input() fichaId: number | null = null;

@@ -5,7 +5,6 @@ import { PostSalesService, Entrega } from '../../../services/post-sales.service'
 
 @Component({
     selector: 'app-delivery-act',
-    standalone: true,
     imports: [CommonModule, FormsModule],
     templateUrl: './delivery-act.component.html'
 })

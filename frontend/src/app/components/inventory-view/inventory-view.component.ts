@@ -5,11 +5,10 @@ import { ProjectsService } from '../../services/projects.service';
 import { Unidad, Proyecto } from '../../models';
 
 @Component({
-  selector: 'app-inventory-view',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './inventory-view.component.html',
-  styleUrls: ['./inventory-view.component.css']
+    selector: 'app-inventory-view',
+    imports: [CommonModule],
+    templateUrl: './inventory-view.component.html',
+    styleUrls: ['./inventory-view.component.css']
 })
 export class InventoryViewComponent implements OnInit {
   units: Unidad[] = [];
