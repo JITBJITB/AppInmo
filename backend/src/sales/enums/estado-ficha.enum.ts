@@ -3,5 +3,6 @@ export enum EstadoFicha {
     RESERVA = 'Reserva',
     PROMESA = 'Promesa',
     ESCRITURADO = 'Escriturado',
-    VENCIDA = 'Vencida'
+    VENCIDA = 'Vencida',
+    DESISTIDA = 'Desistida'
 }

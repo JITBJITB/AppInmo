@@ -23,6 +23,12 @@ export class Unidad {
     @Column({ name: 'metros_cuadrados', type: 'decimal', precision: 10, scale: 2, nullable: true })
     metrosCuadrados: number;
 
+    @Column({ name: 'metros_terraza', type: 'decimal', precision: 10, scale: 2, nullable: true })
+    metrosTerraza: number;
+
+    @Column({ name: 'metros_totales', type: 'decimal', precision: 10, scale: 2, nullable: true })
+    metrosTotales: number;
+
     @Column({ default: 1 })
     piso: number;
 
