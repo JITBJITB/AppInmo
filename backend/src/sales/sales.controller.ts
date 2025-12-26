@@ -1,4 +1,5 @@
-import { Controller, Post, Body, UseGuards, Request, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Request, Get, Param, Res } from '@nestjs/common';
+import type { Response } from 'express';
 import { SalesService } from './sales.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -39,5 +40,20 @@ export class SalesController {
     @Roles('Gerencia', 'Admin')
     approve(@Param('id') id: string) {
         return this.salesService.approveFicha(+id);
+    }
+
+    @Get('guaranteed-rent')
+    @Roles('Agente', 'Broker', 'Admin', 'Contabilidad')
+    getGuaranteedRentReport() {
+        return this.salesService.getGuaranteedRentReport();
+    }
+
+    @Get('guaranteed-rent/csv')
+    @Roles('Agente', 'Broker', 'Admin', 'Contabilidad')
+    async downloadGuaranteedRentCsv(@Res() res: Response) {
+        const csv = await this.salesService.generateGuaranteedRentCsv();
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader('Content-Disposition', 'attachment; filename=nomina_arriendo_garantizado.csv');
+        res.send(csv);
     }
 }

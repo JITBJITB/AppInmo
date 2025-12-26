@@ -36,6 +36,9 @@ export class FichaVenta {
     @Index()
     estadoFicha: EstadoFicha;
 
+    @Column({ name: 'es_renta_corta', default: false })
+    esRentaCorta: boolean;
+
     @Column({ name: 'valor_total_uf', type: 'decimal', precision: 12, scale: 2 })
     valorTotalUf: number;
 

@@ -16,6 +16,8 @@ import { Entrega } from '../entities/entrega.entity';
 import { EstadoHistorial } from '../entities/estado-historial.entity';
 import { Comision } from '../entities/comision.entity';
 import { Usuario } from '../entities/usuario.entity';
+import { ClienteDatosBancarios } from '../entities/cliente-datos-bancarios.entity';
+import { GuaranteedRentBenefit } from '../entities/guaranteed-rent-benefit.entity';
 import { EstadoTransitionService } from './services/estado-transition.service';
 import { DesistimientoService } from './services/desistimiento.service';
 
@@ -35,7 +37,9 @@ import { DesistimientoService } from './services/desistimiento.service';
       Entrega,
       EstadoHistorial,
       Comision,
-      Usuario
+      Usuario,
+      ClienteDatosBancarios,
+      GuaranteedRentBenefit
     ])
   ],
   providers: [SalesService, EstadoTransitionService, DesistimientoService],
