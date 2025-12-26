@@ -10,6 +10,9 @@ import { EstadoFicha } from './enums/estado-ficha.enum';
 import { CreateFichaVentaDto } from './dto/create-ficha-venta.dto';
 import { CotizacionDto } from './dto/cotizacion.dto';
 import { Adicional } from '../entities/adicional.entity';
+import { GuaranteedRentBenefit } from '../entities/guaranteed-rent-benefit.entity';
+import { ClienteDatosBancarios } from '../entities/cliente-datos-bancarios.entity';
+import { TipoCuenta } from '../entities/enums/tipo-cuenta.enum';
 
 @Injectable()
 export class SalesService {
@@ -269,5 +272,90 @@ export class SalesService {
         } finally {
             await queryRunner.release();
         }
+    }
+
+    async getGuaranteedRentReport() {
+        const benefits = await this.dataSource.getRepository(GuaranteedRentBenefit).find({
+            relations: [
+                'fichaVenta',
+                'fichaVenta.unidad',
+                'fichaVenta.unidad.proyecto',
+                'fichaVenta.clientes',
+                'fichaVenta.clientes.cliente',
+                'fichaVenta.clientes.cliente.datosBancarios'
+            ],
+            where: {
+                active: true
+            }
+        });
+
+        const validBenefits = benefits.filter(b => {
+            const ficha = b.fichaVenta;
+            if (!ficha) return false;
+            if (ficha.esRentaCorta) return false;
+            return (ficha.estadoFicha === EstadoFicha.PROMESA || ficha.estadoFicha === EstadoFicha.ESCRITURADO);
+        });
+
+        return validBenefits.map(b => {
+            const ficha = b.fichaVenta;
+            const clientePrincipal = ficha.clientes.find(c => c.rol === 'Principal')?.cliente;
+            const datosBancarios = clientePrincipal?.datosBancarios;
+
+            return {
+                proyecto: ficha.unidad.proyecto.nombre,
+                unidad: ficha.unidad.nombre,
+                clienteNombre: clientePrincipal ? clientePrincipal.nombreCompleto || `${clientePrincipal.nombre1} ${clientePrincipal.apellido1}` : 'N/A',
+                clienteRut: clientePrincipal?.rut || 'N/A',
+                montoArriendoGarantizado: b.monthlyAmount,
+                meses: b.durationMonths,
+                fechaPrimerPago: b.startDate,
+                codigoBanco: datosBancarios?.codigoBanco || '',
+                cuenta: datosBancarios?.numeroCuenta || '',
+                tipoCuenta: datosBancarios?.tipoCuenta || '',
+                correo: clientePrincipal?.email || ''
+            };
+        });
+    }
+
+    async generateGuaranteedRentCsv(): Promise<string> {
+        const data = await this.getGuaranteedRentReport();
+        const header = [
+            'Nombre Cliente',
+            'Rut',
+            'Cuenta Bancaria',
+            'Arriendo Garantizado',
+            'Codigo Banco',
+            'Tipo de Cuenta',
+            'Moneda',
+            'Pais',
+            'Matriz',
+            'Correo'
+        ].join(';');
+
+        const rows = data.map(item => {
+            let tipoCuentaCode = '';
+            if (item.tipoCuenta === TipoCuenta.CORRIENTE) tipoCuentaCode = '1';
+            else if (item.tipoCuenta === TipoCuenta.VISTA) tipoCuentaCode = '3';
+            else tipoCuentaCode = '';
+
+            const moneda = '0';
+            const pais = '1';
+            const matriz = '1';
+
+            return [
+                item.clienteNombre,
+                item.clienteRut,
+                item.cuenta,
+                item.montoArriendoGarantizado,
+                item.codigoBanco,
+                tipoCuentaCode,
+                moneda,
+                pais,
+                matriz,
+                item.correo
+            ].join(';');
+        });
+
+        return [header, ...rows].join('\n');
     }
 }

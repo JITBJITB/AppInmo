@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn, OneToMany, Index, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany, Index, OneToOne } from 'typeorm';
 import { Unidad } from './unidad.entity';
 import { Usuario } from './usuario.entity';
 import { FichaCliente } from './ficha-cliente.entity';
@@ -35,6 +35,9 @@ export class FichaVenta {
     @Column({ type: 'enum', enum: EstadoFicha, default: EstadoFicha.BORRADOR, name: 'estado_ficha' })
     @Index()
     estadoFicha: EstadoFicha;
+
+    @Column({ name: 'es_renta_corta', default: false })
+    esRentaCorta: boolean;
 
     @Column({ name: 'valor_total_uf', type: 'decimal', precision: 12, scale: 2 })
     valorTotalUf: number;
@@ -82,6 +85,9 @@ export class FichaVenta {
 
     @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
     createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+    updatedAt: Date;
 
     @OneToMany(() => FichaCliente, (fc) => fc.fichaVenta)
     clientes: FichaCliente[];

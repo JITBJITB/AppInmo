@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, Index } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, Index, OneToOne } from 'typeorm';
 import { DocumentoCliente } from './documento-cliente.entity';
 import { FichaCliente } from './ficha-cliente.entity';
+import { ClienteDatosBancarios } from './cliente-datos-bancarios.entity';
 
 @Entity('clientes')
 export class Cliente {
@@ -73,4 +74,7 @@ export class Cliente {
 
     @OneToMany(() => FichaCliente, (fc) => fc.cliente)
     fichasAsociadas: FichaCliente[];
+
+    @OneToOne(() => ClienteDatosBancarios, (db) => db.cliente)
+    datosBancarios: ClienteDatosBancarios;
 }
