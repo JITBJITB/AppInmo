@@ -13,11 +13,33 @@ import { Adicional } from '../entities/adicional.entity';
 import { DocumentoVenta } from '../entities/documento-venta.entity';
 import { Escritura } from '../entities/escritura.entity';
 import { Entrega } from '../entities/entrega.entity';
+import { EstadoHistorial } from '../entities/estado-historial.entity';
+import { Comision } from '../entities/comision.entity';
+import { Usuario } from '../entities/usuario.entity';
+import { EstadoTransitionService } from './services/estado-transition.service';
+import { DesistimientoService } from './services/desistimiento.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([FichaVenta, Unidad, Cliente, FichaCliente, PlanPago, Cuota, FichaAdicional, Adicional, DocumentoVenta, Escritura, Entrega])],
-  providers: [SalesService],
+  imports: [
+    TypeOrmModule.forFeature([
+      FichaVenta,
+      Unidad,
+      Cliente,
+      FichaCliente,
+      PlanPago,
+      Cuota,
+      FichaAdicional,
+      Adicional,
+      DocumentoVenta,
+      Escritura,
+      Entrega,
+      EstadoHistorial,
+      Comision,
+      Usuario
+    ])
+  ],
+  providers: [SalesService, EstadoTransitionService, DesistimientoService],
   controllers: [SalesController],
-  exports: [SalesService]
+  exports: [SalesService, EstadoTransitionService, DesistimientoService]
 })
 export class SalesModule { }
